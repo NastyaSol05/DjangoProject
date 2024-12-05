@@ -1,12 +1,15 @@
 import os
+from dotenv import load_dotenv
 from pathlib import Path
+
+load_dotenv(override=True)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = "django-insecure-4yuoe&3_2w_cz9ip$2$2ac4px+2p(d7uj9(7x7zkbwnewus3jd"
+SECRET_KEY = os.getenv('SECRET_KEY')
 
-DEBUG = True
+DEBUG =True if os.getenv('DEBUG') == 'True' else False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -55,11 +58,11 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "django_project",
-        "USER": "postgres",
-        "PASSWORD": "anastaA05",
-        "HOST": "localhost",
-        "PORT": "5432",  # default postgres port
+        "NAME": os.getenv('NAME'),
+        "USER": os.getenv('USER'),
+        "PASSWORD": os.getenv('PASSWORD'),
+        "HOST": os.getenv('HOST'),
+        "PORT": os.getenv('PORT', default='5432'),  # default postgres port
     }
 }
 
