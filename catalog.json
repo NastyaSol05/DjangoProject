@@ -1,0 +1,23 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "name": "Смартфоны",
+      "description": ""
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+      "name": "Iphone 15",
+      "description": "512GB, Gray space",
+      "image": "",
+      "category": 1,
+      "price": "210000.00",
+      "created_at": "2024-12-05T08:56:04.960Z",
+      "updated_at": "2024-12-05T08:56:04.960Z"
+    }
+  }
+]

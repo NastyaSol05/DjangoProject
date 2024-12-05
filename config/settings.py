@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -53,8 +54,12 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "django_project",
+        "USER": "postgres",
+        "PASSWORD": "anastaA05",
+        "HOST": "localhost",
+        "PORT": "5432",  # default postgres port
     }
 }
 
@@ -90,3 +95,7 @@ STATICFILES_DIRS = (BASE_DIR / "static",)
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+MEDIA_URL = "media/"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
