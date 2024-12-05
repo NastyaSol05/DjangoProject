@@ -1,3 +1,4 @@
+from django.core.management import call_command
 from django.core.management.base import BaseCommand
 from catalog.models import Category, Product
 
@@ -19,5 +20,8 @@ class Command(BaseCommand):
             product, created = Product.objects.get_or_create(**products_data)
             if created:
                 self.stdout.write(self.style.SUCCESS(f'Successfully added product: {product.name}'))
+                call_command('loaddata', 'catalog.json')
+                self.stdout.write(self.style.SUCCESS('Successfully loaded data from fixture'))
+
             else:
                 self.stdout.write(self.style.WARNING(f'Product already exists: {product.name}'))
