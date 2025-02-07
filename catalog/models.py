@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 
 class Category(models.Model):
 
@@ -38,9 +40,17 @@ class Product(models.Model):
         default=0, verbose_name="Количество просмотров", help_text="Счетчик просмотров продукта: "
     )
 
+    is_published = models.BooleanField(default=False, verbose_name="Статус публикации")
+
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+
     class Meta:
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
+        permissions = [
+            ("can_unpublish_product", "Can unpublish product"),
+            ("can_delete_product", "Can delete product"),
+        ]
 
     def __str__(self):
         return self.name

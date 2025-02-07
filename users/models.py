@@ -3,7 +3,7 @@ from django.db import models
 
 
 class User(AbstractUser):
-    username = None
+    username = models.CharField(max_length=50, unique=False, blank=True, null=True, default="")
     email = models.EmailField(unique=True, verbose_name="Email")
 
     phone = models.CharField(
@@ -17,7 +17,7 @@ class User(AbstractUser):
     token = models.CharField(max_length=100, verbose_name="Token", blank=True, null=True)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ["username"]
 
     class Meta:
         verbose_name = "Пользователь"
