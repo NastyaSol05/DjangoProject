@@ -40,3 +40,12 @@ class ProductForm(StyleFormMixin, ModelForm):
         if price_check < 0:
             raise ValidationError("Цена не может быть отрицательной.")
         return price_check
+
+
+class ProductModeratorForm(StyleFormMixin, ModelForm):
+
+    INCORRECT_NAME = ["казино", "криптовалюта", "крипта", "биржа", "дешево", "бесплатно", "обман", "полиция", "радар"]
+
+    class Meta:
+        model = Product
+        fields = ("is_published",)
