@@ -1,16 +1,22 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.forms import inlineformset_factory
-from django.http import HttpResponse, HttpResponseForbidden
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from catalog.forms import ProductForm, ProductModeratorForm
 from catalog.models import Product
+from catalog.services import ProductService, get_product_from_cache
 
 
 class ProductListView(ListView):
     model = Product
+
+    def get_queryset(self):
+        category = self.kwargs.get("category")
+        if category:
+            context = ProductService.get_product_by_category(category)
+            return context
+        return get_product_from_cache()
 
 
 class ProductDetailView(LoginRequiredMixin, DetailView):
